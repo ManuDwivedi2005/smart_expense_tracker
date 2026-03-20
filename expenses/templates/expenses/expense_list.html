@@ -12,6 +12,7 @@
 </head>
 <body>
     <h1>My Expense List</h1>
+    <a href="{% url 'add-expense' %}">+ Add New Expense</a>
     <ul>
         {% for expense in expenses %}
             <li>{{ expense.date }} - <strong>{{ expense.title }}</strong> - ₹{{ expense.amount }} <em>({{ expense.get_category_display }})</em></li>
