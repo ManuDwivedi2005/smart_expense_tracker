@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Expenses</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; margin: 5px 0; padding: 10px; border-left: 5px solid #007bff; }
+    </style>
+</head>
+<body>
+    <h1>My Expense List</h1>
+    <ul>
+        {% for expense in expenses %}
+            <li>{{ expense.date }} - <strong>{{ expense.title }}</strong> - ₹{{ expense.amount }} <em>({{ expense.get_category_display }})</em></li>
+        {% empty %}
+            <li>No expenses found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

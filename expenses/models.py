@@ -27,4 +27,4 @@ class Expense(models.Model):
 
     def __str__(self):
         # This controls how the expense looks in the admin panel
-        return f"{self.title} - ${self.amount}"
+        return f"{self.title} - ₹{self.amount}"
