@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Expense</title>
+</head>
+<body>
+    <h1>Delete Expense</h1>
+    <p>Are you sure you want to delete the expense: <strong>"{{ expense.title }}"</strong>?</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete It</button>
+    </form>
+    
+    <br>
+    <a href="{% url 'expense-list' %}">Cancel and go back</a>
+</body>
+</html>

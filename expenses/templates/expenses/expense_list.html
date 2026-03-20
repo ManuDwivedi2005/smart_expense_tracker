@@ -15,7 +15,9 @@
     <a href="{% url 'add-expense' %}">+ Add New Expense</a>
     <ul>
         {% for expense in expenses %}
-            <li>{{ expense.date }} - <strong>{{ expense.title }}</strong> - ₹{{ expense.amount }} <em>({{ expense.get_category_display }})</em></li>
+            <li>{{ expense.date }} - <strong>{{ expense.title }}</strong> - ₹{{ expense.amount }} <em>({{ expense.get_category_display }})</em>
+            <a href="{% url 'edit-expense' expense.id %}">Edit</a>
+             <a href="{% url 'delete-expense' expense.id %}">Delete</a></li>
         {% empty %}
             <li>No expenses found.</li>
         {% endfor %}

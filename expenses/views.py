@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ExpenseForm
 from .models import Expense
 
@@ -28,3 +28,33 @@ def add_expense(request):
         
     context = {'form': form}
     return render(request, 'expenses/expense_form.html', context)
+
+
+def edit_expense(request, pk):
+    # Safely fetch the specific expense, or show a 404 error if it doesn't exist
+    expense = get_object_or_404(Expense, pk=pk)
+    
+    if request.method == 'POST':
+        # Pass the existing expense 'instance' to the form so it knows to UPDATE, not CREATE
+        form = ExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return redirect('expense-list')
+    else:
+        # Pre-fill the form with the existing expense data
+        form = ExpenseForm(instance=expense)
+        
+    context = {'form': form}
+    # Notice we can reuse the EXACT same HTML template we used for adding an expense!
+    return render(request, 'expenses/expense_form.html', context)
+
+def delete_expense(request, pk):
+    expense = get_object_or_404(Expense, pk=pk)
+    
+    # We require a POST request to delete, as a security measure
+    if request.method == 'POST':
+        expense.delete()
+        return redirect('expense-list')
+        
+    context = {'expense': expense}
+    return render(request, 'expenses/expense_confirm_delete.html', context)
